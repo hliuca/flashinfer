@@ -22,6 +22,13 @@
 namespace flashinfer {
 namespace math {
 
+#if (__CUDACC_VER_MAJOR__ >= 11)
+#if (!defined(__CUDA_ARCH__) || (__CUDA_ARCH__ >= 900))
+#define FLASHINFER_EX2_APPROX_FTZ_F16X2_ENABLED
+#endif
+#endif
+
+
 // log2(e)
 constexpr float log2e = 1.44269504088896340736f;
 
@@ -56,7 +63,11 @@ __forceinline__ __device__ float ptx_log2(float x) {
 __forceinline__ __device__ half2 ptx_exp2(half2 x) {
   uint32_t y_u32;
   uint32_t x_u32 = half2_as_uint32(x);
+#ifdef FLASHINFER_EX2_APPROX_FTZ_F16X2_ENABLED
+  asm volatile("ex2.approx.ftz.f16x2 %0, %1;" : "=r"(y_u32) : "r"(x_u32));
+#else
   asm volatile("ex2.approx.f16x2 %0, %1;" : "=r"(y_u32) : "r"(x_u32));
+#endif
   return uint32_as_half2(y_u32);
 }
 
