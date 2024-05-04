@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/flashinfer-ai/flashinfer/compare/v0.0.4...v0.0.5) (2024-05-04)
+
+
+### Bug Fixes
+
+* remove 8 from default page size ([#233](https://github.com/flashinfer-ai/flashinfer/issues/233)) ([62343e6](https://github.com/flashinfer-ai/flashinfer/commit/62343e66039a25cd49e89c8fe11fac153dd4bfee))
+
 ## [0.0.4](https://github.com/flashinfer-ai/flashinfer/compare/v0.0.3...v0.1.0) (2024-05-01)
 
 
